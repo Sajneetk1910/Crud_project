@@ -1,7 +1,7 @@
 import { Button, Card, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import GetUser from "../Components/GetUser";
 function AddUser() {
   const navigate = useNavigate();
 
@@ -70,11 +70,11 @@ function AddUser() {
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-6">
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
-        {editData ? "Edit Product" : "Add Product"}
+        {editData ? "Edit Product" : "Books Listing"}
       </h1>
 
       <div className="max-w-xl mx-auto">
-        <Card className="p-7 shadow-lg rounded 2xl">
+        <Card className="p-8 shadow-lg rounded 2xl">
           <form onSubmit={handleSubmit} className="space-y-8">
             <TextField
               name="name"
@@ -88,12 +88,11 @@ function AddUser() {
               InputProps={{
                 style: {
                   fontSize: "1.1rem",
-                  padding: "10px 8px",
-                  marginBottom:"12px",
-                  
+                  padding: "10px",
+                  marginBottom: "12px",
                 },
               }}
-              // InputLabelProps={{ style: { fontSize: "1.1rem" } }}
+              InputLabelProps={{ style: { fontSize: "16px" } }}
             />
             <TextField
               name="description"
@@ -107,11 +106,11 @@ function AddUser() {
               InputProps={{
                 style: {
                   fontSize: "1.1rem",
-                  padding: "10px 8px",
-                  marginBottom:"12px"
+                  padding: "10px",
+                  marginBottom: "12px",
                 },
               }}
-              InputLabelProps={{ style: { fontSize: "1.1rem" } }}
+              InputLabelProps={{ style: { fontSize: "16px" } }}
             />
             <TextField
               name="image"
@@ -125,11 +124,11 @@ function AddUser() {
               InputProps={{
                 style: {
                   fontSize: "1.1rem",
-                  padding: "10px 8px",
-                  marginBottom:"12px"
+                  padding: "10px",
+                  marginBottom: "12px",
                 },
               }}
-              InputLabelProps={{ style: { fontSize: "1.1rem" } }}
+              InputLabelProps={{ style: { fontSize: "16px" } }}
             />
 
             <div className="flex justify-center">
@@ -158,6 +157,7 @@ function AddUser() {
           </form>
         </Card>
       </div>
+      <GetUser setEditdata={setEditData} setFormData={setFormData} />
     </div>
   );
 }

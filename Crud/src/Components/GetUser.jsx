@@ -1,5 +1,6 @@
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -26,6 +27,23 @@ function GetUser({ setEditdata, setFormData }) {
     getUserData();
   }, []);
 
+  const handleDelete = async (userToDelete) => {
+    try {
+      await fetch(`http://localhost:3000/users/${userToDelete}`, {
+        method: "DELETE",
+      });
+      const updatedData = data.filter((user) => user.id !== userToDelete);
+      setData(updatedData);
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+    }
+  };
+
+  const handleEdit = (val) => {
+    setEditdata(val.id);
+    setFormData(val);
+  };
+
   return (
     <div className="flex flex-wrap justify-center gap-6 mt-8 px-4">
       {data.map((user, id) => (
@@ -42,7 +60,7 @@ function GetUser({ setEditdata, setFormData }) {
           <Avatar
             alt={user.name}
             src={user.image}
-            sx={{ width: 100, height: 100, mb: 2 }}
+            sx={{ width: 160, height: 160, mb: 2 }}
           />
           <CardContent sx={{ textAlign: "center" }}>
             <Typography gutterBottom variant="h6" component="div">
@@ -51,6 +69,23 @@ function GetUser({ setEditdata, setFormData }) {
             <Typography variant="outlined" color="text.secondary">
               {user.description || "No description."}
             </Typography>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "16px",
+                marginTop: "12px",
+              }}
+            >
+              <EditIcon
+                onClick={() => handleEdit(user)}
+                sx={{ cursor: "pointer", marginRight:"10px"}}
+              />
+              <DeleteIcon
+                onClick={() => handleDelete(user.id)}
+                sx={{ cursor: "pointer" }}
+              />
+            </div>
           </CardContent>
         </Card>
       ))}
